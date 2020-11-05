@@ -1,0 +1,169 @@
+﻿@model IEnumerable<MerchantService.Models.mTransaction>
+
+<script>
+    @*$(".ActionDelete").click(function () {
+        var trxid = this.dataset['trxid'];
+        var tdate = this.dataset['trxdate'];
+        var tType = this.dataset['trxtype'];
+        if (confirm("Are you sure you want to delete " + trxid)) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Delete")' + "?trxid=" + trxid,
+                success: function (data) {
+                    load_Trx(tdate, tType);
+                    alert("Deleted");
+                }
+            });
+        }
+    });*@
+
+    $(document).ready(function () {
+        $("#checkall").click(function () {
+            //alert("checked");
+            $(".check_this").prop("checked", this.checked);
+        });
+
+        $("#bDelete").click(function () {
+            var tdate = this.dataset['tdate'];
+            var tType = this.dataset['trxtype'];
+
+            chk_list = Array();
+            $('.check_this:checked').map(function () {
+                chk_list.push($(this).val());
+            }).get();
+
+            if(confirm("Are you sure you want to delete?"))
+            {
+                //alert("delete");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete")',
+                    data: { 'trxid': chk_list },
+                    success:function(data)
+                    {
+                        load_Trx(tdate, tType);
+                        alert(data.message);
+                    }
+                });
+            }
+        });
+    });
+
+    function load_Trx(trxdate, TrxType) {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("TRX_PartialView")' + "?trxdate=" + trxdate + "&TrxType=" + TrxType,
+            success: function (data) {
+                //alert(TrxType);
+                $("#QueryResult").html(data);
+            }
+        });
+    }
+</script>
+@if (TempData["ErrorMessage"] == null)
+{
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <a href="#" id="bDelete" data-trxtype="@ViewBag.TrxType" data-tdate="@ViewBag.TrxDate" class="btn red">Delete</a>
+        </div>
+    </div>
+    <table style="max-height:300px;" class="responsive-table highlight">
+        <tr>
+            <th>
+                <label>
+                    <input type="checkbox" style="position:relative;" class="filled-in" id="checkall" />
+                    <span></span>
+                </label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrxDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrxID)
+            </th>
+            <th>
+                @Html.DisplayName("Merchant ID")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardType)
+            </th>
+            <th>
+                @Html.DisplayName("MDR Rate")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessingCode)
+            </th>
+            <th>
+                @Html.DisplayName("Transaction Amount")
+            </th>
+            <th>
+                @Html.DisplayName("Settlement Amount")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TerminalID)
+            </th>
+            @*<th>
+                
+            </th>*@
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" style="position:relative;" class="check_this filled-in" value="@item.TrxID" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <td>
+                        @String.Format(item.TrxDate.Value.Date.ToString("MM/dd/yyyy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrxID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MPU_Merchant_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardType)
+                    </td>
+                    <td style="text-align:right">
+                       @String.Format("{0:N}", item.TRXMDRRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProcessingCode)
+                    </td>
+                    <td style="text-align:right">
+                        @String.Format("{0:N}", item.TrxAmount)
+                    </td>
+                    <td style="text-align:right">
+                        @String.Format("{0:N}", item.SettAmount)
+                    </td>
+                    <td>
+                        @item.TerminalID
+                    </td>
+                    @*<td>
+                        <a href="#" class="ActionDelete" data-trxid=@item.TrxID data-trxdate=@item.TrxDate data-trxtype=@item.RecordType>Delete</a>
+                    </td>*@
+                </tr>
+            }
+        }
+    </table>
+}
+else
+{
+    <p style="color:red">@TempData["ErrorMessage"]</p>
+    <script>
+        alert(@Html.Raw(Json.Encode(TempData["ErrorMessage"])));
+    </script>
+
+    TempData.Clear();
+}

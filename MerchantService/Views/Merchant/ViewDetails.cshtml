@@ -1,0 +1,187 @@
+﻿@model MerchantService.Models.mMerchant
+
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<h5>Merchant Info:</h5>
+<div class="contriner-fluid">
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Merchant ID")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model=>model.MPU_Merchant_ID)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Merchant Name")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Merchant_Name)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Merchant Phone")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Merchant_Phone)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Merchant Email")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Merchant_Email)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Merchant Address")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Merchant_Address)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("MPU (On Us)")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.OMPURate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("JCB (On Us)")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.OJCBRate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("UPI (On Us)")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.OUPIRate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("MPU (Not On Us)")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.MPURate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("JCB (Not On Us)")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.JCBRate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("UPI (Not On Us)")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.UPIRate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Account No:")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Settlement_Acc)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Account Name")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.SettAccountName)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Business Category")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.BusinessCategory)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<p>
+    @Html.ActionLink("Edit", "UpdateMerchantInfo", new { id = Model.MPU_Merchant_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@{ 
+    if(TempData["Message"]!=null)
+    {
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["Message"])))
+        </script>
+        TempData.Clear();
+    }
+}

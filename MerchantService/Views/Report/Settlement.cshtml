@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MerchantService.Models.mSettlementReport>
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+@{
+    if (TempData["ErrorMessage"] == null)
+    {
+        <table class="responsive-table highlight">
+            <tr>
+                <th>TrxDate</th>
+                <th>MID</th>
+                <th>Account Name</th>
+                <th>Merchant Name</th>
+                <th>Settlement A/C</th>
+                <th style="text-align:right;">Total Trans</th>
+                <th style="text-align:right;">Tran Amount</th>
+                <th style="text-align:right;">MDR Value</th>
+                <th style="text-align:right;">Settlement Amount</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TrxDate.Value.ToString("MM/dd/yyyy")</td>
+                    <td>@item.MPU_Merchant_ID</td>
+                    <td>@item.SettAccountName</td>
+                    <td>@item.Merchant_Name</td>
+                    <td>@item.Settlement_Acc</td>
+                    <td style="text-align:right;">@item.TotalTrans</td>
+                    <td style="text-align:right;">@String.Format("{0:N}", item.TrxAmount)</td>
+                    <td style="text-align:right;">@String.Format("{0:N}", item.MDRValue)</td>
+                    <td style="text-align:right;">@String.Format("{0:N}", item.SettAmount)</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="5">Total</td>
+                <td style="text-align:right;">@Model.Sum(i => i.TotalTrans)</td>
+                <td style="text-align:right;">@String.Format("{0:N}", Model.Sum(i => i.TrxAmount))</td>
+                <td style="text-align:right;">@String.Format("{0:N}", Model.Sum(i => i.MDRValue))</td>
+                <td style="text-align:right;">@String.Format("{0:N}", Model.Sum(i => i.SettAmount))</td>
+            </tr>
+        </table>
+
+    }
+}
+
+@{
+    if (TempData["ErrorMessage"] != null)
+    {
+        <p style="color:red">@TempData["ErrorMessage"]</p>
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["ErrorMessage"])));
+        </script>
+
+        TempData.Clear();
+    }
+}

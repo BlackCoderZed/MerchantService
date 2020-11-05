@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MerchantService.Models.mTransaction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        //for date box
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $("#trxdate").val(today);
+
+
+
+        @*$(".ActionDelete").click(function () {
+            var trxid = this.dataset['trxid'];
+            if(confirm("Are you sure you want to delete "+trxid))
+            {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("Delete")' + "?trxid=" + trxid,
+                    success:function(data)
+                    {
+                        var tdate = $("#trxdate").val();
+                        var tType = $("#TrxType").val();
+                        load_Trx(tdate, tType);
+                    }
+                });
+            }
+        });*@
+
+        $("#submit").click(function () {
+            var tdate = $("#trxdate").val();
+            var tType = $("#TrxType").val();
+
+            var lstatus = "<h5 style='color:red;'>loading...</h5>";
+            $("#QueryResult").html(lstatus);
+
+            load_Trx(tdate, tType);
+        });
+
+        
+
+        function load_Trx(trxdate, TrxType)
+        {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("TRX_PartialView")' + "?trxdate=" + trxdate + "&TrxType=" + TrxType,
+                success:function(data)
+                {
+                    //alert(data);
+                    $("#QueryResult").html(data);
+                }
+            });
+        }
+    });
+</script>
+
+<h5>Transaction Management</h5>
+<div class="row">
+    <div class="col s12 l6 m6">
+        <input type="date" id="trxdate" name="trxdate" required />
+
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l6 m6">
+        <div>
+            <label>TRX Type</label>
+            <select class="browser-default  custom-select " id="TrxType" name="TrxType">
+                <option value="MPU_Not_ONUS">MPU - Not On Us</option>
+                <option value="MPU_ON_US">MPU - On Us</option>
+                <option value="UPI_Not_ONUS">UPI - Not On Us</option>
+                <option value="UPI_ON_US">UPI - On Us</option>
+                <option value="JCB_Not_ONUS">JCB - Not On Us</option>
+                <option value="JCB_ON_US">JCB - On Us</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l6 m6">
+        @*<input type="submit" value="Search" class="btn btn-primary" />*@
+        <a href="#" class="btn btn-primary" id="submit">Search</a>
+    </div>
+</div>
+
+<hr />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m12 l12" id="QueryResult" style="max-height:300px;overflow:auto;">
+            
+            
+        </div>
+    </div>
+</div>
+

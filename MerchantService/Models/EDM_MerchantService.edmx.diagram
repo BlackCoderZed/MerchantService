@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="45b78fcbd2914c06a0a260896fc9b4c9" Name="Diagram1" ZoomLevel="61" >
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_BusinessCategory" Width="1.5" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_Department" Width="1.5" PointX="5.5" PointY="12.25" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_Office" Width="1.5" PointX="3.625" PointY="12.25" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_Staff" Width="1.5" PointX="4.5" PointY="9.25" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Staff_t_Department" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Staff_t_Office" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_login_log" Width="1.5" PointX="0.5" PointY="9.25" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_Transactions" Width="1.5" PointX="6.875" PointY="6" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_CardBin" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.v_Transactions" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_Merchant_Info" Width="1.5" PointX="1" PointY="0.5" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Merchant_Info_t_BusinessCategory" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Transactions_t_Merchant_Info" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.v_Merchant" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.v_Staff" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_MStatus" Width="1.5" PointX="3.875" PointY="6.875" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Merchant_Info_t_Merchant_Info" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Merchant_Info_t_MStatus" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.t_Users" Width="1.5" PointX="6.75" PointY="15.25" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_login_log_t_Users" />
+        <AssociationConnector Association="dbCardMerchantModel.FK_t_Users_t_Staff" />
+        <EntityTypeShape EntityType="dbCardMerchantModel.v_UserInfo" Width="1.5" PointX="9.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

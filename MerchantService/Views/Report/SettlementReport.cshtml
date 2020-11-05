@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+<h5>Settlement Report</h5>
+<script>
+    $(document).ready(function () {
+
+        //for date box
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $("#trxdate").val(today);
+
+        $('#bGetReport').click(function () {
+            var trxdate = $("#trxdate").val();
+            var trxtype = $("#TrxType").val();
+
+            var lstatus = "<h5 style='color:red;'>loading...</h5>";
+            $('#divSettlement').html(lstatus);
+
+            var httpreq = new XMLHttpRequest();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Settlement")' + "?trxdate=" + trxdate + "&chkType=" + trxtype,
+                success: function(data)
+                {
+                    $("#divSettlement").html(data);
+                }
+            });
+
+            //httpreq.onreadystatechange = function () {
+            //    if (this.readyState == 4 && this.status == 200) {
+            //        $("#divSettlement").html(this.response);
+            //    }
+            //}
+            //httpreq.open("GET", "/Report/Settlement?trxdate=" + trxdate + "&chkType="+trxtype, true);
+            //httpreq.send();
+        });
+
+        $('#bExport').click(function () {
+            var trxdate = $("#trxdate").val();
+            var trxtype = $("#TrxType").val();
+                
+            var win = window.open("/Report/SettlementReportExportToExcel?trxdate=" + trxdate + "&chkType=" + trxtype, '_blank');
+            win.focus()            
+        });
+    });
+</script>
+
+
+
+<div class="row">
+    <div class="col s12 m6 l6">
+        <input type="date" id="trxdate" name="trxdate" />
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m3 l3">
+        <div>
+            <label>TRX Type</label>
+            <select class="browser-default  custom-select " id="TrxType">
+                <option value="MPU_Not_ONUS">MPU - Not On Us</option>
+                <option value="MPU_ON_US">MPU - On Us</option>
+                <option value="UPI_Not_ONUS">UPI - Not On Us</option>
+                <option value="UPI_ON_US">UPI - On Us</option>
+                <option value="JCB_Not_ONUS">JCB - Not On Us</option>
+                <option value="JCB_ON_US">JCB - On Us</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6 l6">
+        <a href="#" id="bGetReport" class="btn btn-primary">Retrieve</a>
+        <a href="#" id="bExport" class="btn btn-primary">Export</a>
+    </div>
+</div>
+
+<hr />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m12 l12" id="divSettlement" style="height:300px;overflow:auto;">
+
+        </div>
+    </div>
+</div>

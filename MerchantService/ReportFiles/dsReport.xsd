@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsReport" targetNamespace="http://tempuri.org/dsReport.xsd" xmlns:mstns="http://tempuri.org/dsReport.xsd" xmlns="http://tempuri.org/dsReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="MerchantServiceDB" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="MerchantServiceDB (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.MerchantServiceDB.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="v_TransactionsTableAdapter" GeneratorDataComponentClassName="v_TransactionsTableAdapter" Name="v_Transactions" UserDataComponentName="v_TransactionsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="MerchantServiceDB (Web.config)" DbObjectName="[dbCard&amp;Merchant].dbo.v_Transactions" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT TrxID, MPU_Merchant_ID, Merchant_Name, Merchant_Address, Merchant_Email, Merchant_Phone, Settlement_Acc, BusinessCategoryID, BusinessCategory, RecordType, CardNo, CardType, ProcessingCode, TrxAmount, SettAmount, TrxDate FROM dbo.v_Transactions</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="TrxID" DataSetColumn="TrxID" />
+              <Mapping SourceColumn="MPU_Merchant_ID" DataSetColumn="MPU_Merchant_ID" />
+              <Mapping SourceColumn="Merchant_Name" DataSetColumn="Merchant_Name" />
+              <Mapping SourceColumn="Merchant_Address" DataSetColumn="Merchant_Address" />
+              <Mapping SourceColumn="Merchant_Email" DataSetColumn="Merchant_Email" />
+              <Mapping SourceColumn="Merchant_Phone" DataSetColumn="Merchant_Phone" />
+              <Mapping SourceColumn="Settlement_Acc" DataSetColumn="Settlement_Acc" />
+              <Mapping SourceColumn="BusinessCategoryID" DataSetColumn="BusinessCategoryID" />
+              <Mapping SourceColumn="BusinessCategory" DataSetColumn="BusinessCategory" />
+              <Mapping SourceColumn="RecordType" DataSetColumn="RecordType" />
+              <Mapping SourceColumn="CardNo" DataSetColumn="CardNo" />
+              <Mapping SourceColumn="CardType" DataSetColumn="CardType" />
+              <Mapping SourceColumn="ProcessingCode" DataSetColumn="ProcessingCode" />
+              <Mapping SourceColumn="TrxAmount" DataSetColumn="TrxAmount" />
+              <Mapping SourceColumn="SettAmount" DataSetColumn="SettAmount" />
+              <Mapping SourceColumn="TrxDate" DataSetColumn="TrxDate" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReport" msprop:Generator_UserDSName="dsReport">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="v_Transactions" msprop:Generator_TableClassName="v_TransactionsDataTable" msprop:Generator_TableVarName="tablev_Transactions" msprop:Generator_TablePropName="v_Transactions" msprop:Generator_RowDeletingName="v_TransactionsRowDeleting" msprop:Generator_RowChangingName="v_TransactionsRowChanging" msprop:Generator_RowEvHandlerName="v_TransactionsRowChangeEventHandler" msprop:Generator_RowDeletedName="v_TransactionsRowDeleted" msprop:Generator_UserTableName="v_Transactions" msprop:Generator_RowChangedName="v_TransactionsRowChanged" msprop:Generator_RowEvArgName="v_TransactionsRowChangeEvent" msprop:Generator_RowClassName="v_TransactionsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TrxID" msprop:Generator_ColumnVarNameInTable="columnTrxID" msprop:Generator_ColumnPropNameInRow="TrxID" msprop:Generator_ColumnPropNameInTable="TrxIDColumn" msprop:Generator_UserColumnName="TrxID" type="xs:int" />
+              <xs:element name="MPU_Merchant_ID" msprop:Generator_ColumnVarNameInTable="columnMPU_Merchant_ID" msprop:Generator_ColumnPropNameInRow="MPU_Merchant_ID" msprop:Generator_ColumnPropNameInTable="MPU_Merchant_IDColumn" msprop:Generator_UserColumnName="MPU_Merchant_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Merchant_Name" msprop:Generator_ColumnVarNameInTable="columnMerchant_Name" msprop:Generator_ColumnPropNameInRow="Merchant_Name" msprop:Generator_ColumnPropNameInTable="Merchant_NameColumn" msprop:Generator_UserColumnName="Merchant_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Merchant_Address" msprop:Generator_ColumnVarNameInTable="columnMerchant_Address" msprop:Generator_ColumnPropNameInRow="Merchant_Address" msprop:Generator_ColumnPropNameInTable="Merchant_AddressColumn" msprop:Generator_UserColumnName="Merchant_Address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Merchant_Email" msprop:Generator_ColumnVarNameInTable="columnMerchant_Email" msprop:Generator_ColumnPropNameInRow="Merchant_Email" msprop:Generator_ColumnPropNameInTable="Merchant_EmailColumn" msprop:Generator_UserColumnName="Merchant_Email" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Merchant_Phone" msprop:Generator_ColumnVarNameInTable="columnMerchant_Phone" msprop:Generator_ColumnPropNameInRow="Merchant_Phone" msprop:Generator_ColumnPropNameInTable="Merchant_PhoneColumn" msprop:Generator_UserColumnName="Merchant_Phone" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Settlement_Acc" msprop:Generator_ColumnVarNameInTable="columnSettlement_Acc" msprop:Generator_ColumnPropNameInRow="Settlement_Acc" msprop:Generator_ColumnPropNameInTable="Settlement_AccColumn" msprop:Generator_UserColumnName="Settlement_Acc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BusinessCategoryID" msprop:Generator_ColumnVarNameInTable="columnBusinessCategoryID" msprop:Generator_ColumnPropNameInRow="BusinessCategoryID" msprop:Generator_ColumnPropNameInTable="BusinessCategoryIDColumn" msprop:Generator_UserColumnName="BusinessCategoryID" type="xs:int" minOccurs="0" />
+              <xs:element name="BusinessCategory" msprop:Generator_ColumnVarNameInTable="columnBusinessCategory" msprop:Generator_ColumnPropNameInRow="BusinessCategory" msprop:Generator_ColumnPropNameInTable="BusinessCategoryColumn" msprop:Generator_UserColumnName="BusinessCategory" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RecordType" msprop:Generator_ColumnVarNameInTable="columnRecordType" msprop:Generator_ColumnPropNameInRow="RecordType" msprop:Generator_ColumnPropNameInTable="RecordTypeColumn" msprop:Generator_UserColumnName="RecordType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CardNo" msprop:Generator_ColumnVarNameInTable="columnCardNo" msprop:Generator_ColumnPropNameInRow="CardNo" msprop:Generator_ColumnPropNameInTable="CardNoColumn" msprop:Generator_UserColumnName="CardNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CardType" msprop:Generator_ColumnVarNameInTable="columnCardType" msprop:Generator_ColumnPropNameInRow="CardType" msprop:Generator_ColumnPropNameInTable="CardTypeColumn" msprop:Generator_UserColumnName="CardType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProcessingCode" msprop:Generator_ColumnVarNameInTable="columnProcessingCode" msprop:Generator_ColumnPropNameInRow="ProcessingCode" msprop:Generator_ColumnPropNameInTable="ProcessingCodeColumn" msprop:Generator_UserColumnName="ProcessingCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TrxAmount" msprop:Generator_ColumnVarNameInTable="columnTrxAmount" msprop:Generator_ColumnPropNameInRow="TrxAmount" msprop:Generator_ColumnPropNameInTable="TrxAmountColumn" msprop:Generator_UserColumnName="TrxAmount" type="xs:double" minOccurs="0" />
+              <xs:element name="SettAmount" msprop:Generator_ColumnVarNameInTable="columnSettAmount" msprop:Generator_ColumnPropNameInRow="SettAmount" msprop:Generator_ColumnPropNameInTable="SettAmountColumn" msprop:Generator_UserColumnName="SettAmount" type="xs:double" minOccurs="0" />
+              <xs:element name="TrxDate" msprop:Generator_ColumnVarNameInTable="columnTrxDate" msprop:Generator_ColumnPropNameInRow="TrxDate" msprop:Generator_ColumnPropNameInTable="TrxDateColumn" msprop:Generator_UserColumnName="TrxDate" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:v_Transactions" />
+      <xs:field xpath="mstns:TrxID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

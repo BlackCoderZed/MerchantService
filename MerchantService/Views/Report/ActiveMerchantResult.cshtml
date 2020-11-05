@@ -1,0 +1,31 @@
+﻿
+
+@if (ViewBag.MerchantVB != null)
+            {
+    <table class="responsive-table highlight">
+        <tr>
+            <th>Merchant ID</th>
+            <th>Merchant</th>
+        </tr>
+        @foreach (var item in ViewBag.MerchantVB)
+        {
+            <tr>
+                <td>@item.MPU_Merchant_ID</td>
+                <td>@item.Merchant_Name</td>
+                <td>
+                    @Html.ActionLink("Print", "PrintAdvise", new { @merchantid = item.MPU_Merchant_ID, @startdate = @ViewData["startdate"], @enddate = @ViewData["enddate"] })
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p style="color:red">@TempData["ErrorMessage"]</p>
+    <script>
+        alert(@Html.Raw(Json.Encode(TempData["ErrorMessage"])));
+    </script>
+
+    TempData.Clear();
+}

@@ -1,0 +1,165 @@
+﻿@model MerchantService.Models.mMerchant
+
+@{
+    ViewBag.Title = "CreateMerchant";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+
+<p style="color:red">
+    *** Need to fill all fields ***
+</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m7 l7">
+            <div class="card">
+                <div class="card-content">
+                    @using (Html.BeginForm("AddMerchant", "Merchant",FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h5>Merchant Info:</h5>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.Label("Merchant ID", new { @class = "control-label col-md-2" })
+                                @*@Html.LabelFor(model => model.MPU_Merchant_ID, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.MPU_Merchant_ID, new { htmlAttributes = new { @class = "form-control",@required=true,@type="number"} })
+                                    @Html.ValidationMessageFor(model => model.MPU_Merchant_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Name", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Merchant_Name, new { htmlAttributes = new { @class = "form-control",@required=true } })
+                                    @Html.ValidationMessageFor(model => model.Merchant_Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Address", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Merchant_Address, new { @class = "materialize-textarea", @required = true } )
+                                    
+                                    @Html.ValidationMessageFor(model => model.Merchant_Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Email", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Merchant_Email, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.Merchant_Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Phone", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Merchant_Phone, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.Merchant_Phone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Account No:", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Settlement_Acc, new { htmlAttributes = new { @class = "form-control", @required = true, @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.Settlement_Acc, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Account Name", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.SettAccountName, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.SettAccountName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("MPU (On Us)", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.OMPURate, new { htmlAttributes = new { @class = "form-control", @required = true, @type = "number", @step = "0.01"}})
+                                    @Html.ValidationMessageFor(model => model.OMPURate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("JCB (On Us)", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.OJCBRate, new { htmlAttributes = new { @class = "form-control", @required = true, @type = "number", @step = "0.01" } })
+                                    @Html.ValidationMessageFor(model => model.OJCBRate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("UPI (On Us)", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.OUPIRate, new { htmlAttributes = new { @class = "form-control", @required = true, @type = "number", @step = "0.01" } })
+                                    @Html.ValidationMessageFor(model => model.OUPIRate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("MPU (Not On Us)", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.MPURate, new { htmlAttributes = new { @class = "form-control",@required=true, @type = "number",@step="0.01" } })
+                                    @Html.ValidationMessageFor(model => model.MPURate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("JCB (Not On Us)", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.JCBRate, new { htmlAttributes = new { @class = "form-control", @required = true, @type = "number", @step = "0.01" } })
+                                    @Html.ValidationMessageFor(model => model.MPURate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("UPI (Not On Us)", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UPIRate, new { htmlAttributes = new { @class = "form-control", @required = true, @type = "number", @step = "0.01" } })
+                                    @Html.ValidationMessageFor(model => model.MPURate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Business Category", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.BusinessCategoryID, new SelectList(ViewBag.Category, "BusinessCategoryID", "BusinessCategory"), new { @class = "form-control" })
+                                    @*@Html.EditorFor(model => model.BusinessCategoryID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @Html.ValidationMessageFor(model => model.BusinessCategoryID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default right" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Merchant", null,null)
+</div>
+
+@{ 
+    if(TempData["Message"]!=null)
+    {
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["Message"])));
+        </script>
+        TempData.Clear();
+    }
+}

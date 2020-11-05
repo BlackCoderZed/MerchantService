@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Termination";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        clearField();
+        $('#retrieve').click(function () {
+            clearField();
+            var mid = $('#mid').val();
+            $.ajax({
+                type:"GET",
+                url: '@Url.Action("RetrieveMerchant")',
+                data: { 'mid': mid },
+                success:function(data)
+                {
+                    if (data.success)
+                    {
+                        $('#merchantname').val(data.merchant.Merchant_Name);
+                        $('#accname').val(data.merchant.SettAccountName);
+                        $('#settacc').val(data.merchant.Settlement_Acc);
+                        $('#category').val(data.merchant.BusinessCategory);
+                        if (data.merchant.MPU_Merchant_ID != null) {
+                            $('#terminate').prop('disabled', false);
+                        }
+                    }
+                    else
+                    {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+
+        $('#terminate').click(function () {
+            var mid = $('#mid').val();
+            $.ajax({
+                type:"POST",
+                url:'@Url.Action("TerminateMerchant")',
+                data: { 'mid': mid },
+                success:function(data)
+                {
+                    if (data.success)
+                    {
+                        alert(data.msg);
+                        $('#terminate').prop('disabled', true);
+                    }
+                    else
+                    {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    });
+
+    function clearField()
+    {
+        $('#merchantname').val("");
+        $('#accname').val("");
+        $('#settacc').val("");
+        $('#category').val("");
+        $('#terminate').prop('disabled', true);
+    }
+</script>
+
+<h5>Termination</h5>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <div class="card">
+                <div class="card-content">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("MPU ID", new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-10">
+                                <input type="text" id="mid" class="form-control" />
+                                <a href="#" id="retrieve" class="btn right">Retrieve</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Merchant Name", new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-10">
+                                <input type="text" id="merchantname" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Account Name", new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-10">
+                                <input type="text" id="accname" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Settlement Account", new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-10">
+                                <input type="text" id="settacc" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Business Category", new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-10">
+                                <input type="text" id="category" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button id="terminate" class="btn red right" value="Terminate">Terminate</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

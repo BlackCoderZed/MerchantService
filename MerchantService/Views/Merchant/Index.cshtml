@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MerchantService.Models.v_Merchant>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Merchant";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
+<h5>Merchant</h5>
+
+<p>
+    @Html.ActionLink("Create New", "CreateMerchant") 
+    @*@Html.ActionLink("Export to Excel", "ExportMerchant")*@
+</p>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col s12 m12 l12" style="height:400px;overflow:auto;">
+            @Html.Grid(Model).Columns(columns =>
+       {
+           columns.Add(foo => foo.MPU_Merchant_ID).Titled("Merchant ID").Sortable(true).Filterable(true).SetWidth(110);
+           columns.Add(foo => foo.Merchant_Name).Titled("Merchant").Sortable(true).Filterable(true);
+           columns.Add(foo => foo.BusinessCategory).Sortable(true).Filterable(true);
+           columns.Add(foo => foo.Merchant_Phone).Titled("Phone").Filterable(true);
+           columns.Add(foo => foo.Merchant_Email).Titled("Email").Filterable(true);
+           columns.Add(foo => foo.MStatus).Titled("Status").Filterable(true);
+           columns.Add().Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(foo => Html.ActionLink("Details", "ViewDetails", new { merchantid = foo.MPU_Merchant_ID }, new { @class = "waves-effect" }));
+           columns.Add().Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(foo => Html.ActionLink("Edit", "UpdateMerchantInfo", new { id = foo.MPU_Merchant_ID }, new { @class = "waves-effect" }));
+           //columns.Add().Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(foo => Html.ActionLink("Delete", "Delete", new { id = foo.MPU_Merchant_ID }, new { @class = "waves-effect" }));
+       }).WithPaging(6)
+        </div>
+    </div>
+</div>

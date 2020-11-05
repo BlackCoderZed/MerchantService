@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+<h4>Dashboard</h4>
+
+@{ 
+    if(TempData["Message"]!=null)
+    {
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["Message"])));
+        </script>
+    }
+}

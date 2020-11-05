@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MerchantService.Models.mTransaction>
+@if (TempData["ErrorMessage"] == null)
+{
+    if (Model != null)
+    {
+        <table class="responsive-table highlight">
+            <tr>
+                <th>TRX Date</th>
+                <th>Merchant ID</th>
+                <th>Merchant Name</th>
+                <th>Card No</th>
+                <th>Card Type</th>
+                <th style="text-align:right;">MDR Rate</th>
+                <th style="text-align:right;">TRX Amount</th>
+                <th style="text-align:right;">MDR Value</th>
+                <th style="text-align:right;">Settlement Amount</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TrxDate.Value.ToString("MM/dd/yyyy")</td>
+                    <td>@item.MPU_Merchant_ID</td>
+                    <td>@item.Merchant_Name</td>
+                    <td>@item.CardNo</td>
+                    <td>@item.CardType</td>
+                    <td style="text-align:right;">@String.Format("{0:N}", item.TRXMDRRate)</td>
+                    <td style="text-align:right;">@String.Format("{0:N}", item.TrxAmount)</td>
+                    <td  style="text-align:right;">@String.Format("{0:N}",item.MDRValue)</td>
+                    <td style="text-align:right;">@String.Format("{0:N}", item.SettAmount)</td>
+                    <td></td>
+                </tr>
+            }
+            <tr>
+                <td colspan="6">Total</td>
+                <td style="text-align:right;">@String.Format("{0:N}",Model.Sum(i=>i.TrxAmount))</td>
+                <td style="text-align:right;">@String.Format("{0:N}", Model.Sum(i => i.MDRValue))</td>
+                <td style="text-align:right;">@String.Format("{0:N}",Model.Sum(i=>i.SettAmount))</td>
+            </tr>
+        </table>
+    }
+}
+else
+{
+    <p style="color:red">@TempData["ErrorMessage"]</p>
+    <script>
+        alert(@Html.Raw(Json.Encode(TempData["ErrorMessage"])));
+    </script>
+
+    TempData.Clear();
+}
+

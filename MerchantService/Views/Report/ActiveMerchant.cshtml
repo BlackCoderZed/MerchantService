@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "ActiveMerchant";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<h5>Payment Advise</h5>
+
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $('#startdate').val(today);
+        $('#enddate').val(today);
+
+        $('#Retrieve').click(function () {
+            var xhttpreq = new XMLHttpRequest();
+            var startdate = $('#startdate').val();
+            var enddate = $('#enddate').val();
+
+            var lstatus = "<h5 style='color:red;'>loading...</h5>";
+            $('#QueryResult').html(lstatus);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ActiveMerchantResult")' + "?startdate=" + startdate + "&enddate=" + enddate,
+                success:function(data)
+                {
+                    $("#QueryResult").html(data);
+                }
+            });
+            //xhttpreq.onreadystatechange = function () {
+            //    if (this.readyState == 4 && this.status == 200) {
+            //        $("#QueryResult").html(this.response);
+            //    }
+            //}
+            //xhttpreq.open("GET", "/Report/ActiveMerchantResult?startdate=" + startdate + "&enddate=" + enddate, true);
+            //xhttpreq.send();
+        });
+    });
+    
+</script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m4 l4">
+            Start Date
+            <input type="date" name="startdate" id="startdate" required />
+        </div>
+        <div class="col s12 m4 l4">
+            End Date
+            <input type="date" name="enddate" id="enddate" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m4 l4">
+            <a href="#" id="Retrieve" class="btn btn-primary">Retrieve</a>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col s12 m12 l12" id="QueryResult" style="overflow:auto;height:300px;">
+            
+        </div>
+    </div>
+</div>

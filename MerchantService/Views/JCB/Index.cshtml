@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
+<script>
+    $(document).ready(function()
+    {
+        $('#bcom').click(function () {
+            alert("BCOM is not supported for JCB");
+            $('#inc').prop('checked', true);
+        });
+    });
+</script>
+<h6>JCB Calculation</h6>
+
+@using (Html.BeginForm("Index", "JCB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Choose File</span>
+                    <input type="file" name="postedFile">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m5 l5">
+            File Type
+            <p>
+                <label>
+                    <input name="chkType" id="inc" type="radio" value="inc" checked />
+                    <span>INC</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input name="chkType" id="bcom" value="bcom" type="radio" />
+                    <span>BCOM</span>
+                </label>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m6 l6">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Upload
+            </button>
+        </div>
+    </div>
+
+}
+
+<hr />
+@{
+    if (TempData["MerchantInfoError"] != null)
+    {
+        //this is warrning message
+        <p style="color:red">@TempData["MerchantInfoError"]</p>
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["MerchantInfoError"])));
+        </script>
+        TempData.Clear();
+    }
+
+    if (TempData["TRX_Message"] != null)
+    {
+        <p style="color:blue">@TempData["TRX_Message"]</p>
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["TRX_Message"])));
+        </script>
+        TempData.Clear();
+    }
+
+    if (ViewBag.ChkType == "inc")
+    {
+        <script>
+            $('#inc').prop('checked', true);
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#inc').prop('checked', true);
+        </script>
+    }
+
+    if (ViewBag.FileName != null)
+    {
+        <script>
+            document.getElementsByName("postedFile").value = ViewBag.FileName;
+        </script>
+    }
+}
+
+

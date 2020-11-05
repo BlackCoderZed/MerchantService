@@ -1,0 +1,74 @@
+﻿@model MerchantService.Models.mUser
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_loginLayout.cshtml";
+}
+
+@{ 
+    if(Session["UID"]!=null)
+    {
+        Session.Clear();
+        Session.Abandon();
+    }
+}
+
+<script>
+    $(document).ready(function () {
+        $("#login_div").fadeIn(2000);
+    });
+</script>
+
+<h5>User Login</h5>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col l4 hide-on-med-and-down">
+
+        </div>
+        <div class="col l4 m12 s12">
+            @using (Html.BeginForm("UserLogin","Portal",FormMethod.Post,new {@autocomplete="off" }))
+            {
+                <div class="card" id="login_div" style="display:none;">
+                    <div class="card-title" style="padding-left:15px;padding-top:10px;">
+                        Login
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                @Html.TextBoxFor(model => model.UserID,new {@placeholder="User ID",@required="true", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                @Html.PasswordFor(model=>model.Passwd,new {@placeholder="Password",@required="true", @autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <input type="submit" value="Login" class="btn btn-primary right" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+            <p class="text-muted">Developed By SAMT (Technology)</p>
+        </div>
+        <div class="col l4 hide-on-med-and-down">
+
+        </div>
+    </div>
+</div>
+
+@{ 
+    if(TempData["Message"]!=null)
+    {
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["Message"])))
+        </script>
+    }
+}
+

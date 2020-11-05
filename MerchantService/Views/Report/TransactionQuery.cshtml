@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "TransactionQuery";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<h5>Transaction Query</h5>
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        
+        $('#startdate').val(today);
+        $('#enddate').val(today);
+
+        $('#Retrieve').click(function () {
+            var lstatus = "<h5 style='color:red;'>loading...</h5>";
+            $('#QueryResult').html(lstatus);
+            var xhttpreq = new XMLHttpRequest();
+            var startdate = $('#startdate').val();
+            var enddate = $('#enddate').val();
+            var searchkey = $('#searchkey').val();
+            
+            xhttpreq.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    $("#QueryResult").html(this.response);
+                }
+            }
+            xhttpreq.open("GET", "/Report/TransactionQueryResult?searchkey=" + searchkey + "&startdate=" + startdate + "&enddate=" + enddate, true);
+            xhttpreq.send();
+        });
+
+        $('#QueryExport').click(function () {
+            var startdate = $('#startdate').val();
+            var enddate = $('#enddate').val();
+            var searchkey = $('#searchkey').val();
+            
+            var win = window.open("/Report/TransactionQueryExport?searchkey="+searchkey+"&startdate=" + startdate + "&enddate=" + enddate, "_blank");
+            win.focus();
+            //win.close();
+        });
+    });
+
+</script>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m4 l4">
+            <input type="text" id="searchkey" placeholder="Search By Merchant Name / MID" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m4 l4">
+            Start Date
+            <input type="date" name="startdate" id="startdate" required />
+        </div>
+        <div class="col s12 m4 l4">
+            End Date
+            <input type="date" name="enddate" id="enddate" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m4 l4">
+            <a href="#" id="Retrieve" class="btn btn-primary">Retrieve</a>
+        </div>
+        <div class="col s12 m4 l4">
+            <a href="#" id="QueryExport" class="btn btn-primary">Export To Excel</a>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col s12 m12 l12" id="QueryResult" style="height:300px;overflow:auto;">
+        </div>
+    </div>
+</div>
+

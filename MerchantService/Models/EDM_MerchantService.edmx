@@ -1,0 +1,997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbCardMerchantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_BusinessCategory">
+          <Key>
+            <PropertyRef Name="BusinessCategoryID" />
+          </Key>
+          <Property Name="BusinessCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusinessCategory" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_CardBin">
+          <Key>
+            <PropertyRef Name="BINCode" />
+          </Key>
+          <Property Name="BINCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CardType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_login_log">
+          <Key>
+            <PropertyRef Name="login_logid" />
+          </Key>
+          <Property Name="login_logid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_time_log" Type="datetime" />
+          <Property Name="is_success" Type="int" />
+        </EntityType>
+        <EntityType Name="t_Merchant_Info">
+          <Key>
+            <PropertyRef Name="MPU_Merchant_ID" />
+          </Key>
+          <Property Name="MPU_Merchant_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Merchant_Name" Type="nvarchar(max)" />
+          <Property Name="Merchant_Address" Type="nvarchar(max)" />
+          <Property Name="Merchant_Email" Type="nvarchar(max)" />
+          <Property Name="Merchant_Phone" Type="nvarchar(max)" />
+          <Property Name="Settlement_Acc" Type="nvarchar" MaxLength="50" />
+          <Property Name="SettAccountName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MPURate" Type="float" />
+          <Property Name="JCBRate" Type="float" />
+          <Property Name="UPIRate" Type="float" />
+          <Property Name="OMPURate" Type="float" />
+          <Property Name="OJCBRate" Type="float" />
+          <Property Name="OUPIRate" Type="float" />
+          <Property Name="BusinessCategoryID" Type="int" />
+          <Property Name="MStatusID" Type="int" />
+          <Property Name="CreationDate" Type="date" />
+          <Property Name="TerminationDate" Type="date" />
+        </EntityType>
+        <EntityType Name="t_MStatus">
+          <Key>
+            <PropertyRef Name="MStatusID" />
+          </Key>
+          <Property Name="MStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_Office">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="OfficeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Office" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="OfficeID" Type="int" />
+        </EntityType>
+        <EntityType Name="t_Transactions">
+          <Key>
+            <PropertyRef Name="TrxID" />
+          </Key>
+          <Property Name="TrxID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecordType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="CardType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingCode" Type="nchar" MaxLength="10" />
+          <Property Name="TrxAmount" Type="float" />
+          <Property Name="MDRValue" Type="float" />
+          <Property Name="SettAmount" Type="float" />
+          <Property Name="SettConversationRate" Type="float" />
+          <Property Name="TRXMDRRate" Type="float" />
+          <Property Name="CurrencyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SettCurrencyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TerminalID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MPU_Merchant_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrxDate" Type="date" />
+          <Property Name="TRXRemark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Passwd" Type="nvarchar(max)" />
+          <Property Name="StaffID" Type="int" />
+          <Property Name="UserLevel" Type="int" />
+          <Property Name="AdminLogin" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbCard&Merchant.dbo.v_Merchant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_Merchant">
+          <Key>
+            <PropertyRef Name="MPU_Merchant_ID" />
+            
+          </Key>
+          <Property Name="MPU_Merchant_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Merchant_Name" Type="nvarchar(max)" />
+          <Property Name="Merchant_Address" Type="nvarchar(max)" />
+          <Property Name="Merchant_Email" Type="nvarchar(max)" />
+          <Property Name="Merchant_Phone" Type="nvarchar(max)" />
+          <Property Name="Settlement_Acc" Type="nvarchar" MaxLength="50" />
+          <Property Name="SettAccountName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MPURate" Type="float" />
+          <Property Name="JCBRate" Type="float" />
+          <Property Name="UPIRate" Type="float" />
+          <Property Name="OMPURate" Type="float" />
+          <Property Name="OJCBRate" Type="float" />
+          <Property Name="OUPIRate" Type="float" />
+          <Property Name="BusinessCategoryID" Type="int" />
+          <Property Name="BusinessCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="MStatusID" Type="int" />
+          <Property Name="MStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreationDate" Type="date" />
+          <Property Name="TerminationDate" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbCard&Merchant.dbo.v_Staff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="int" Nullable="false" />
+          <Property Name="StaffName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="OfficeID" Type="int" />
+          <Property Name="Office" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbCard&Merchant.dbo.v_Transactions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_Transactions">
+          <Key>
+            <PropertyRef Name="TrxID" />
+            
+          </Key>
+          <Property Name="TrxID" Type="int" Nullable="false" />
+          <Property Name="Merchant_Name" Type="nvarchar(max)" />
+          <Property Name="Merchant_Address" Type="nvarchar(max)" />
+          <Property Name="Merchant_Email" Type="nvarchar(max)" />
+          <Property Name="Merchant_Phone" Type="nvarchar(max)" />
+          <Property Name="Settlement_Acc" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessCategoryID" Type="int" />
+          <Property Name="BusinessCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecordType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="CardType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcessingCode" Type="nchar" MaxLength="10" />
+          <Property Name="TrxAmount" Type="float" />
+          <Property Name="MDRValue" Type="float" />
+          <Property Name="SettAmount" Type="float" />
+          <Property Name="SettConversationRate" Type="float" />
+          <Property Name="TRXMDRRate" Type="float" />
+          <Property Name="CurrencyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SettCurrencyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TerminalID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MPU_Merchant_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrxDate" Type="date" />
+          <Property Name="TRXRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="SettAccountName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbCard&Merchant.dbo.v_UserInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_UserInfo">
+          <Key>
+            <PropertyRef Name="StaffID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="StaffID" Type="int" Nullable="false" />
+          <Property Name="StaffName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="OfficeID" Type="int" />
+          <Property Name="Office" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Passwd" Type="nvarchar(max)" />
+          <Property Name="AdminLogin" Type="int" />
+          <Property Name="UserLevel" Type="int" />
+        </EntityType>
+        <Association Name="FK_t_login_log_t_Users">
+          <End Role="t_Users" Type="Self.t_Users" Multiplicity="0..1" />
+          <End Role="t_login_log" Type="Self.t_login_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_login_log">
+              <PropertyRef Name="login_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Merchant_Info_t_BusinessCategory">
+          <End Role="t_BusinessCategory" Type="Self.t_BusinessCategory" Multiplicity="0..1" />
+          <End Role="t_Merchant_Info" Type="Self.t_Merchant_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_BusinessCategory">
+              <PropertyRef Name="BusinessCategoryID" />
+            </Principal>
+            <Dependent Role="t_Merchant_Info">
+              <PropertyRef Name="BusinessCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Merchant_Info_t_Merchant_Info">
+          <End Role="t_Merchant_Info" Type="Self.t_Merchant_Info" Multiplicity="1" />
+          <End Role="t_Merchant_Info1" Type="Self.t_Merchant_Info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="t_Merchant_Info">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Principal>
+            <Dependent Role="t_Merchant_Info1">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Merchant_Info_t_MStatus">
+          <End Role="t_MStatus" Type="Self.t_MStatus" Multiplicity="0..1" />
+          <End Role="t_Merchant_Info" Type="Self.t_Merchant_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_MStatus">
+              <PropertyRef Name="MStatusID" />
+            </Principal>
+            <Dependent Role="t_Merchant_Info">
+              <PropertyRef Name="MStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Staff_t_Department">
+          <End Role="t_Department" Type="Self.t_Department" Multiplicity="0..1" />
+          <End Role="t_Staff" Type="Self.t_Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="t_Staff">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Staff_t_Office">
+          <End Role="t_Office" Type="Self.t_Office" Multiplicity="0..1" />
+          <End Role="t_Staff" Type="Self.t_Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Office">
+              <PropertyRef Name="OfficeID" />
+            </Principal>
+            <Dependent Role="t_Staff">
+              <PropertyRef Name="OfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Transactions_t_Merchant_Info">
+          <End Role="t_Merchant_Info" Type="Self.t_Merchant_Info" Multiplicity="0..1" />
+          <End Role="t_Transactions" Type="Self.t_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Merchant_Info">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Principal>
+            <Dependent Role="t_Transactions">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Users_t_Staff">
+          <End Role="t_Staff" Type="Self.t_Staff" Multiplicity="0..1" />
+          <End Role="t_Users" Type="Self.t_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="t_Users">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbCardMerchantModelStoreContainer">
+          <EntitySet Name="t_BusinessCategory" EntityType="Self.t_BusinessCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_CardBin" EntityType="Self.t_CardBin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Department" EntityType="Self.t_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_login_log" EntityType="Self.t_login_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Merchant_Info" EntityType="Self.t_Merchant_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_MStatus" EntityType="Self.t_MStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Office" EntityType="Self.t_Office" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Staff" EntityType="Self.t_Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Transactions" EntityType="Self.t_Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Users" EntityType="Self.t_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_Merchant" EntityType="Self.v_Merchant" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_Merchant].[MPU_Merchant_ID] AS [MPU_Merchant_ID], 
+    [v_Merchant].[Merchant_Name] AS [Merchant_Name], 
+    [v_Merchant].[Merchant_Address] AS [Merchant_Address], 
+    [v_Merchant].[Merchant_Email] AS [Merchant_Email], 
+    [v_Merchant].[Merchant_Phone] AS [Merchant_Phone], 
+    [v_Merchant].[Settlement_Acc] AS [Settlement_Acc], 
+    [v_Merchant].[SettAccountName] AS [SettAccountName], 
+    [v_Merchant].[MPURate] AS [MPURate], 
+    [v_Merchant].[JCBRate] AS [JCBRate], 
+    [v_Merchant].[UPIRate] AS [UPIRate], 
+    [v_Merchant].[OMPURate] AS [OMPURate], 
+    [v_Merchant].[OJCBRate] AS [OJCBRate], 
+    [v_Merchant].[OUPIRate] AS [OUPIRate], 
+    [v_Merchant].[BusinessCategoryID] AS [BusinessCategoryID], 
+    [v_Merchant].[BusinessCategory] AS [BusinessCategory], 
+    [v_Merchant].[MStatusID] AS [MStatusID], 
+    [v_Merchant].[MStatus] AS [MStatus], 
+    [v_Merchant].[CreationDate] AS [CreationDate], 
+    [v_Merchant].[TerminationDate] AS [TerminationDate]
+    FROM [dbo].[v_Merchant] AS [v_Merchant]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_Staff" EntityType="Self.v_Staff" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_Staff].[StaffID] AS [StaffID], 
+    [v_Staff].[StaffName] AS [StaffName], 
+    [v_Staff].[DepartmentID] AS [DepartmentID], 
+    [v_Staff].[Department] AS [Department], 
+    [v_Staff].[OfficeID] AS [OfficeID], 
+    [v_Staff].[Office] AS [Office]
+    FROM [dbo].[v_Staff] AS [v_Staff]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_Transactions" EntityType="Self.v_Transactions" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_Transactions].[TrxID] AS [TrxID], 
+    [v_Transactions].[Merchant_Name] AS [Merchant_Name], 
+    [v_Transactions].[Merchant_Address] AS [Merchant_Address], 
+    [v_Transactions].[Merchant_Email] AS [Merchant_Email], 
+    [v_Transactions].[Merchant_Phone] AS [Merchant_Phone], 
+    [v_Transactions].[Settlement_Acc] AS [Settlement_Acc], 
+    [v_Transactions].[BusinessCategoryID] AS [BusinessCategoryID], 
+    [v_Transactions].[BusinessCategory] AS [BusinessCategory], 
+    [v_Transactions].[RecordType] AS [RecordType], 
+    [v_Transactions].[CardNo] AS [CardNo], 
+    [v_Transactions].[CardType] AS [CardType], 
+    [v_Transactions].[ProcessingCode] AS [ProcessingCode], 
+    [v_Transactions].[TrxAmount] AS [TrxAmount], 
+    [v_Transactions].[MDRValue] AS [MDRValue], 
+    [v_Transactions].[SettAmount] AS [SettAmount], 
+    [v_Transactions].[SettConversationRate] AS [SettConversationRate], 
+    [v_Transactions].[TRXMDRRate] AS [TRXMDRRate], 
+    [v_Transactions].[CurrencyCode] AS [CurrencyCode], 
+    [v_Transactions].[SettCurrencyCode] AS [SettCurrencyCode], 
+    [v_Transactions].[TerminalID] AS [TerminalID], 
+    [v_Transactions].[MPU_Merchant_ID] AS [MPU_Merchant_ID], 
+    [v_Transactions].[TrxDate] AS [TrxDate], 
+    [v_Transactions].[TRXRemark] AS [TRXRemark], 
+    [v_Transactions].[SettAccountName] AS [SettAccountName]
+    FROM [dbo].[v_Transactions] AS [v_Transactions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_UserInfo" EntityType="Self.v_UserInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_UserInfo].[StaffID] AS [StaffID], 
+    [v_UserInfo].[StaffName] AS [StaffName], 
+    [v_UserInfo].[DepartmentID] AS [DepartmentID], 
+    [v_UserInfo].[Department] AS [Department], 
+    [v_UserInfo].[OfficeID] AS [OfficeID], 
+    [v_UserInfo].[Office] AS [Office], 
+    [v_UserInfo].[UserID] AS [UserID], 
+    [v_UserInfo].[Passwd] AS [Passwd], 
+    [v_UserInfo].[AdminLogin] AS [AdminLogin], 
+    [v_UserInfo].[UserLevel] AS [UserLevel]
+    FROM [dbo].[v_UserInfo] AS [v_UserInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_t_login_log_t_Users" Association="Self.FK_t_login_log_t_Users">
+            <End Role="t_Users" EntitySet="t_Users" />
+            <End Role="t_login_log" EntitySet="t_login_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Merchant_Info_t_BusinessCategory" Association="Self.FK_t_Merchant_Info_t_BusinessCategory">
+            <End Role="t_BusinessCategory" EntitySet="t_BusinessCategory" />
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Merchant_Info_t_Merchant_Info" Association="Self.FK_t_Merchant_Info_t_Merchant_Info">
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+            <End Role="t_Merchant_Info1" EntitySet="t_Merchant_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Merchant_Info_t_MStatus" Association="Self.FK_t_Merchant_Info_t_MStatus">
+            <End Role="t_MStatus" EntitySet="t_MStatus" />
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Staff_t_Department" Association="Self.FK_t_Staff_t_Department">
+            <End Role="t_Department" EntitySet="t_Department" />
+            <End Role="t_Staff" EntitySet="t_Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Staff_t_Office" Association="Self.FK_t_Staff_t_Office">
+            <End Role="t_Office" EntitySet="t_Office" />
+            <End Role="t_Staff" EntitySet="t_Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Transactions_t_Merchant_Info" Association="Self.FK_t_Transactions_t_Merchant_Info">
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+            <End Role="t_Transactions" EntitySet="t_Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Users_t_Staff" Association="Self.FK_t_Users_t_Staff">
+            <End Role="t_Staff" EntitySet="t_Staff" />
+            <End Role="t_Users" EntitySet="t_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbCardMerchantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MerchantService" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="t_BusinessCategory" EntityType="dbCardMerchantModel.t_BusinessCategory" />
+          <EntitySet Name="t_Department" EntityType="dbCardMerchantModel.t_Department" />
+          <EntitySet Name="t_Office" EntityType="dbCardMerchantModel.t_Office" />
+          <EntitySet Name="t_Staff" EntityType="dbCardMerchantModel.t_Staff" />
+          <AssociationSet Name="FK_t_Staff_t_Department" Association="dbCardMerchantModel.FK_t_Staff_t_Department">
+            <End Role="t_Department" EntitySet="t_Department" />
+            <End Role="t_Staff" EntitySet="t_Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Staff_t_Office" Association="dbCardMerchantModel.FK_t_Staff_t_Office">
+            <End Role="t_Office" EntitySet="t_Office" />
+            <End Role="t_Staff" EntitySet="t_Staff" />
+          </AssociationSet>
+          <EntitySet Name="t_login_log" EntityType="dbCardMerchantModel.t_login_log" />
+          <EntitySet Name="t_Transactions" EntityType="dbCardMerchantModel.t_Transactions" />
+          <EntitySet Name="t_CardBin" EntityType="dbCardMerchantModel.t_CardBin" />
+          <EntitySet Name="v_Transactions" EntityType="dbCardMerchantModel.v_Transactions" />
+          <EntitySet Name="t_Merchant_Info" EntityType="dbCardMerchantModel.t_Merchant_Info" />
+          <AssociationSet Name="FK_t_Merchant_Info_t_BusinessCategory" Association="dbCardMerchantModel.FK_t_Merchant_Info_t_BusinessCategory">
+            <End Role="t_BusinessCategory" EntitySet="t_BusinessCategory" />
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Transactions_t_Merchant_Info" Association="dbCardMerchantModel.FK_t_Transactions_t_Merchant_Info">
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+            <End Role="t_Transactions" EntitySet="t_Transactions" />
+          </AssociationSet>
+          <EntitySet Name="v_Merchant" EntityType="dbCardMerchantModel.v_Merchant" />
+          <EntitySet Name="v_Staff" EntityType="dbCardMerchantModel.v_Staff" />
+          <EntitySet Name="t_MStatus" EntityType="dbCardMerchantModel.t_MStatus" />
+          <AssociationSet Name="FK_t_Merchant_Info_t_Merchant_Info" Association="dbCardMerchantModel.FK_t_Merchant_Info_t_Merchant_Info">
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+            <End Role="t_Merchant_Info1" EntitySet="t_Merchant_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Merchant_Info_t_MStatus" Association="dbCardMerchantModel.FK_t_Merchant_Info_t_MStatus">
+            <End Role="t_MStatus" EntitySet="t_MStatus" />
+            <End Role="t_Merchant_Info" EntitySet="t_Merchant_Info" />
+          </AssociationSet>
+          <EntitySet Name="t_Users" EntityType="dbCardMerchantModel.t_Users" />
+          <AssociationSet Name="FK_t_login_log_t_Users" Association="dbCardMerchantModel.FK_t_login_log_t_Users">
+            <End Role="t_Users" EntitySet="t_Users" />
+            <End Role="t_login_log" EntitySet="t_login_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_Users_t_Staff" Association="dbCardMerchantModel.FK_t_Users_t_Staff">
+            <End Role="t_Staff" EntitySet="t_Staff" />
+            <End Role="t_Users" EntitySet="t_Users" />
+          </AssociationSet>
+          <EntitySet Name="v_UserInfo" EntityType="dbCardMerchantModel.v_UserInfo" />
+        </EntityContainer>
+        <EntityType Name="t_BusinessCategory">
+          <Key>
+            <PropertyRef Name="BusinessCategoryID" />
+          </Key>
+          <Property Name="BusinessCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="BusinessCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_Merchant_Info" Relationship="dbCardMerchantModel.FK_t_Merchant_Info_t_BusinessCategory" FromRole="t_BusinessCategory" ToRole="t_Merchant_Info" />
+        </EntityType>
+        <EntityType Name="t_Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_Staff" Relationship="dbCardMerchantModel.FK_t_Staff_t_Department" FromRole="t_Department" ToRole="t_Staff" />
+        </EntityType>
+        <EntityType Name="t_Office">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="OfficeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Office" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_Staff" Relationship="dbCardMerchantModel.FK_t_Staff_t_Office" FromRole="t_Office" ToRole="t_Staff" />
+        </EntityType>
+        <EntityType Name="t_Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="OfficeID" Type="Int32" />
+          <NavigationProperty Name="t_Department" Relationship="dbCardMerchantModel.FK_t_Staff_t_Department" FromRole="t_Staff" ToRole="t_Department" />
+          <NavigationProperty Name="t_Office" Relationship="dbCardMerchantModel.FK_t_Staff_t_Office" FromRole="t_Staff" ToRole="t_Office" />
+          <NavigationProperty Name="t_Users" Relationship="dbCardMerchantModel.FK_t_Users_t_Staff" FromRole="t_Staff" ToRole="t_Users" />
+        </EntityType>
+        <Association Name="FK_t_Staff_t_Department">
+          <End Type="dbCardMerchantModel.t_Department" Role="t_Department" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_Staff" Role="t_Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="t_Staff">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Staff_t_Office">
+          <End Type="dbCardMerchantModel.t_Office" Role="t_Office" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_Staff" Role="t_Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Office">
+              <PropertyRef Name="OfficeID" />
+            </Principal>
+            <Dependent Role="t_Staff">
+              <PropertyRef Name="OfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="t_login_log">
+          <Key>
+            <PropertyRef Name="login_logid" />
+          </Key>
+          <Property Name="login_logid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_time_log" Type="DateTime" Precision="3" />
+          <Property Name="is_success" Type="Int32" />
+          <NavigationProperty Name="t_Users" Relationship="dbCardMerchantModel.FK_t_login_log_t_Users" FromRole="t_login_log" ToRole="t_Users" />
+        </EntityType>
+        <EntityType Name="t_Transactions">
+          <Key>
+            <PropertyRef Name="TrxID" />
+          </Key>
+          <Property Name="TrxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecordType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TrxAmount" Type="Double" />
+          <Property Name="SettAmount" Type="Double" />
+          <Property Name="MPU_Merchant_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrxDate" Type="DateTime" Precision="0" />
+          <Property Name="MDRValue" Type="Double" />
+          <Property Name="SettConversationRate" Type="Double" />
+          <Property Name="CurrencyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SettCurrencyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TerminalID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_Merchant_Info" Relationship="dbCardMerchantModel.FK_t_Transactions_t_Merchant_Info" FromRole="t_Transactions" ToRole="t_Merchant_Info" />
+          <Property Name="TRXRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRXMDRRate" Type="Double" />
+        </EntityType>
+        <EntityType Name="t_CardBin">
+          <Key>
+            <PropertyRef Name="BINCode" />
+          </Key>
+          <Property Name="BINCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="v_Transactions">
+          <Key>
+            <PropertyRef Name="TrxID" />
+          </Key>
+          <Property Name="TrxID" Type="Int32" Nullable="false" />
+          <Property Name="MPU_Merchant_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Settlement_Acc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessCategoryID" Type="Int32" />
+          <Property Name="BusinessCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecordType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TrxAmount" Type="Double" />
+          <Property Name="SettAmount" Type="Double" />
+          <Property Name="TrxDate" Type="DateTime" Precision="0" />
+          <Property Name="MDRValue" Type="Double" />
+          <Property Name="SettConversationRate" Type="Double" />
+          <Property Name="CurrencyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SettCurrencyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TerminalID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRXRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SettAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TRXMDRRate" Type="Double" />
+        </EntityType>
+        <EntityType Name="t_Merchant_Info">
+          <Key>
+            <PropertyRef Name="MPU_Merchant_ID" />
+          </Key>
+          <Property Name="MPU_Merchant_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Settlement_Acc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MPURate" Type="Double" />
+          <Property Name="JCBRate" Type="Double" />
+          <Property Name="UPIRate" Type="Double" />
+          <Property Name="OMPURate" Type="Double" />
+          <Property Name="OJCBRate" Type="Double" />
+          <Property Name="OUPIRate" Type="Double" />
+          <Property Name="BusinessCategoryID" Type="Int32" />
+          <NavigationProperty Name="t_BusinessCategory" Relationship="dbCardMerchantModel.FK_t_Merchant_Info_t_BusinessCategory" FromRole="t_Merchant_Info" ToRole="t_BusinessCategory" />
+          <NavigationProperty Name="t_Transactions" Relationship="dbCardMerchantModel.FK_t_Transactions_t_Merchant_Info" FromRole="t_Merchant_Info" ToRole="t_Transactions" />
+          <Property Name="SettAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MStatusID" Type="Int32" />
+          <NavigationProperty Name="t_Merchant_Info1" Relationship="dbCardMerchantModel.FK_t_Merchant_Info_t_Merchant_Info" FromRole="t_Merchant_Info" ToRole="t_Merchant_Info1" />
+          <NavigationProperty Name="t_Merchant_Info2" Relationship="dbCardMerchantModel.FK_t_Merchant_Info_t_Merchant_Info" FromRole="t_Merchant_Info1" ToRole="t_Merchant_Info" />
+          <NavigationProperty Name="t_MStatus" Relationship="dbCardMerchantModel.FK_t_Merchant_Info_t_MStatus" FromRole="t_Merchant_Info" ToRole="t_MStatus" />
+          <Property Name="CreationDate" Type="DateTime" Precision="0" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_t_Merchant_Info_t_BusinessCategory">
+          <End Type="dbCardMerchantModel.t_BusinessCategory" Role="t_BusinessCategory" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_Merchant_Info" Role="t_Merchant_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_BusinessCategory">
+              <PropertyRef Name="BusinessCategoryID" />
+            </Principal>
+            <Dependent Role="t_Merchant_Info">
+              <PropertyRef Name="BusinessCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Transactions_t_Merchant_Info">
+          <End Type="dbCardMerchantModel.t_Merchant_Info" Role="t_Merchant_Info" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_Transactions" Role="t_Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Merchant_Info">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Principal>
+            <Dependent Role="t_Transactions">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_Merchant">
+          <Key>
+            <PropertyRef Name="MPU_Merchant_ID" />
+          </Key>
+          <Property Name="MPU_Merchant_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchant_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Settlement_Acc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MPURate" Type="Double" />
+          <Property Name="JCBRate" Type="Double" />
+          <Property Name="UPIRate" Type="Double" />
+          <Property Name="OMPURate" Type="Double" />
+          <Property Name="OJCBRate" Type="Double" />
+          <Property Name="OUPIRate" Type="Double" />
+          <Property Name="BusinessCategoryID" Type="Int32" />
+          <Property Name="BusinessCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SettAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MStatusID" Type="Int32" />
+          <Property Name="MStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="0" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="v_Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="Int32" Nullable="false" />
+          <Property Name="StaffName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeID" Type="Int32" />
+          <Property Name="Office" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_MStatus">
+          <Key>
+            <PropertyRef Name="MStatusID" />
+          </Key>
+          <Property Name="MStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_Merchant_Info" Relationship="dbCardMerchantModel.FK_t_Merchant_Info_t_MStatus" FromRole="t_MStatus" ToRole="t_Merchant_Info" />
+        </EntityType>
+        <Association Name="FK_t_Merchant_Info_t_Merchant_Info">
+          <End Type="dbCardMerchantModel.t_Merchant_Info" Role="t_Merchant_Info" Multiplicity="1" />
+          <End Type="dbCardMerchantModel.t_Merchant_Info" Role="t_Merchant_Info1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="t_Merchant_Info">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Principal>
+            <Dependent Role="t_Merchant_Info1">
+              <PropertyRef Name="MPU_Merchant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Merchant_Info_t_MStatus">
+          <End Type="dbCardMerchantModel.t_MStatus" Role="t_MStatus" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_Merchant_Info" Role="t_Merchant_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_MStatus">
+              <PropertyRef Name="MStatusID" />
+            </Principal>
+            <Dependent Role="t_Merchant_Info">
+              <PropertyRef Name="MStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="t_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Passwd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StaffID" Type="Int32" />
+          <Property Name="UserLevel" Type="Int32" />
+          <Property Name="AdminLogin" Type="Int32" />
+          <NavigationProperty Name="t_login_log" Relationship="dbCardMerchantModel.FK_t_login_log_t_Users" FromRole="t_Users" ToRole="t_login_log" />
+          <NavigationProperty Name="t_Staff" Relationship="dbCardMerchantModel.FK_t_Users_t_Staff" FromRole="t_Users" ToRole="t_Staff" />
+        </EntityType>
+        <Association Name="FK_t_login_log_t_Users">
+          <End Type="dbCardMerchantModel.t_Users" Role="t_Users" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_login_log" Role="t_login_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="t_login_log">
+              <PropertyRef Name="login_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_Users_t_Staff">
+          <End Type="dbCardMerchantModel.t_Staff" Role="t_Staff" Multiplicity="0..1" />
+          <End Type="dbCardMerchantModel.t_Users" Role="t_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="t_Users">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_UserInfo">
+          <Key>
+            <PropertyRef Name="StaffID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="StaffID" Type="Int32" Nullable="false" />
+          <Property Name="StaffName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeID" Type="Int32" />
+          <Property Name="Office" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Passwd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdminLogin" Type="Int32" />
+          <Property Name="UserLevel" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbCardMerchantModelStoreContainer" CdmEntityContainer="MerchantService" >
+          <EntitySetMapping Name="t_BusinessCategory">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_BusinessCategory">
+              <MappingFragment StoreEntitySet="t_BusinessCategory">
+                <ScalarProperty Name="BusinessCategory" ColumnName="BusinessCategory" />
+                <ScalarProperty Name="BusinessCategoryID" ColumnName="BusinessCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Department">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_Department">
+              <MappingFragment StoreEntitySet="t_Department">
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Office">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_Office">
+              <MappingFragment StoreEntitySet="t_Office">
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Staff">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_Staff">
+              <MappingFragment StoreEntitySet="t_Staff">
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_login_log">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_login_log">
+              <MappingFragment StoreEntitySet="t_login_log">
+                <ScalarProperty Name="is_success" ColumnName="is_success" />
+                <ScalarProperty Name="date_time_log" ColumnName="date_time_log" />
+                <ScalarProperty Name="login_user" ColumnName="login_user" />
+                <ScalarProperty Name="login_logid" ColumnName="login_logid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Transactions">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_Transactions">
+              <MappingFragment StoreEntitySet="t_Transactions">
+                <ScalarProperty Name="TRXMDRRate" ColumnName="TRXMDRRate" />
+                <ScalarProperty Name="TRXRemark" ColumnName="TRXRemark" />
+                <ScalarProperty Name="TerminalID" ColumnName="TerminalID" />
+                <ScalarProperty Name="SettCurrencyCode" ColumnName="SettCurrencyCode" />
+                <ScalarProperty Name="CurrencyCode" ColumnName="CurrencyCode" />
+                <ScalarProperty Name="SettConversationRate" ColumnName="SettConversationRate" />
+                <ScalarProperty Name="MDRValue" ColumnName="MDRValue" />
+                <ScalarProperty Name="TrxDate" ColumnName="TrxDate" />
+                <ScalarProperty Name="MPU_Merchant_ID" ColumnName="MPU_Merchant_ID" />
+                <ScalarProperty Name="SettAmount" ColumnName="SettAmount" />
+                <ScalarProperty Name="TrxAmount" ColumnName="TrxAmount" />
+                <ScalarProperty Name="ProcessingCode" ColumnName="ProcessingCode" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="RecordType" ColumnName="RecordType" />
+                <ScalarProperty Name="TrxID" ColumnName="TrxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_CardBin">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_CardBin">
+              <MappingFragment StoreEntitySet="t_CardBin">
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="BINCode" ColumnName="BINCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Transactions">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.v_Transactions">
+              <MappingFragment StoreEntitySet="v_Transactions">
+                <ScalarProperty Name="TRXMDRRate" ColumnName="TRXMDRRate" />
+                <ScalarProperty Name="SettAccountName" ColumnName="SettAccountName" />
+                <ScalarProperty Name="TRXRemark" ColumnName="TRXRemark" />
+                <ScalarProperty Name="TerminalID" ColumnName="TerminalID" />
+                <ScalarProperty Name="SettCurrencyCode" ColumnName="SettCurrencyCode" />
+                <ScalarProperty Name="CurrencyCode" ColumnName="CurrencyCode" />
+                <ScalarProperty Name="SettConversationRate" ColumnName="SettConversationRate" />
+                <ScalarProperty Name="MDRValue" ColumnName="MDRValue" />
+                <ScalarProperty Name="TrxDate" ColumnName="TrxDate" />
+                <ScalarProperty Name="SettAmount" ColumnName="SettAmount" />
+                <ScalarProperty Name="TrxAmount" ColumnName="TrxAmount" />
+                <ScalarProperty Name="ProcessingCode" ColumnName="ProcessingCode" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="RecordType" ColumnName="RecordType" />
+                <ScalarProperty Name="BusinessCategory" ColumnName="BusinessCategory" />
+                <ScalarProperty Name="BusinessCategoryID" ColumnName="BusinessCategoryID" />
+                <ScalarProperty Name="Settlement_Acc" ColumnName="Settlement_Acc" />
+                <ScalarProperty Name="Merchant_Phone" ColumnName="Merchant_Phone" />
+                <ScalarProperty Name="Merchant_Email" ColumnName="Merchant_Email" />
+                <ScalarProperty Name="Merchant_Address" ColumnName="Merchant_Address" />
+                <ScalarProperty Name="Merchant_Name" ColumnName="Merchant_Name" />
+                <ScalarProperty Name="MPU_Merchant_ID" ColumnName="MPU_Merchant_ID" />
+                <ScalarProperty Name="TrxID" ColumnName="TrxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Merchant_Info">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_Merchant_Info">
+              <MappingFragment StoreEntitySet="t_Merchant_Info">
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MStatusID" ColumnName="MStatusID" />
+                <ScalarProperty Name="SettAccountName" ColumnName="SettAccountName" />
+                <ScalarProperty Name="BusinessCategoryID" ColumnName="BusinessCategoryID" />
+                <ScalarProperty Name="OUPIRate" ColumnName="OUPIRate" />
+                <ScalarProperty Name="OJCBRate" ColumnName="OJCBRate" />
+                <ScalarProperty Name="OMPURate" ColumnName="OMPURate" />
+                <ScalarProperty Name="UPIRate" ColumnName="UPIRate" />
+                <ScalarProperty Name="JCBRate" ColumnName="JCBRate" />
+                <ScalarProperty Name="MPURate" ColumnName="MPURate" />
+                <ScalarProperty Name="Settlement_Acc" ColumnName="Settlement_Acc" />
+                <ScalarProperty Name="Merchant_Phone" ColumnName="Merchant_Phone" />
+                <ScalarProperty Name="Merchant_Email" ColumnName="Merchant_Email" />
+                <ScalarProperty Name="Merchant_Address" ColumnName="Merchant_Address" />
+                <ScalarProperty Name="Merchant_Name" ColumnName="Merchant_Name" />
+                <ScalarProperty Name="MPU_Merchant_ID" ColumnName="MPU_Merchant_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Merchant">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.v_Merchant">
+              <MappingFragment StoreEntitySet="v_Merchant">
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MStatus" ColumnName="MStatus" />
+                <ScalarProperty Name="MStatusID" ColumnName="MStatusID" />
+                <ScalarProperty Name="SettAccountName" ColumnName="SettAccountName" />
+                <ScalarProperty Name="BusinessCategory" ColumnName="BusinessCategory" />
+                <ScalarProperty Name="BusinessCategoryID" ColumnName="BusinessCategoryID" />
+                <ScalarProperty Name="OUPIRate" ColumnName="OUPIRate" />
+                <ScalarProperty Name="OJCBRate" ColumnName="OJCBRate" />
+                <ScalarProperty Name="OMPURate" ColumnName="OMPURate" />
+                <ScalarProperty Name="UPIRate" ColumnName="UPIRate" />
+                <ScalarProperty Name="JCBRate" ColumnName="JCBRate" />
+                <ScalarProperty Name="MPURate" ColumnName="MPURate" />
+                <ScalarProperty Name="Settlement_Acc" ColumnName="Settlement_Acc" />
+                <ScalarProperty Name="Merchant_Phone" ColumnName="Merchant_Phone" />
+                <ScalarProperty Name="Merchant_Email" ColumnName="Merchant_Email" />
+                <ScalarProperty Name="Merchant_Address" ColumnName="Merchant_Address" />
+                <ScalarProperty Name="Merchant_Name" ColumnName="Merchant_Name" />
+                <ScalarProperty Name="MPU_Merchant_ID" ColumnName="MPU_Merchant_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Staff">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.v_Staff">
+              <MappingFragment StoreEntitySet="v_Staff">
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_MStatus">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_MStatus">
+              <MappingFragment StoreEntitySet="t_MStatus">
+                <ScalarProperty Name="MStatus" ColumnName="MStatus" />
+                <ScalarProperty Name="MStatusID" ColumnName="MStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Users">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.t_Users">
+              <MappingFragment StoreEntitySet="t_Users">
+                <ScalarProperty Name="AdminLogin" ColumnName="AdminLogin" />
+                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="Passwd" ColumnName="Passwd" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_UserInfo">
+            <EntityTypeMapping TypeName="dbCardMerchantModel.v_UserInfo">
+              <MappingFragment StoreEntitySet="v_UserInfo">
+                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+                <ScalarProperty Name="AdminLogin" ColumnName="AdminLogin" />
+                <ScalarProperty Name="Passwd" ColumnName="Passwd" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

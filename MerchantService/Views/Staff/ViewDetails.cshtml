@@ -1,0 +1,76 @@
+﻿@model MerchantService.Models.mStaff
+
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m12 l6">
+            <div class="card">
+                <div class="card-content">
+                    <h5>Staff Info:</h5>
+                    <hr />
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Staff ID")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model=>model.StaffID)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Name")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.StaffName)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Department")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Department)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 m3 l3">
+                            @Html.DisplayName("Office")
+                        </div>
+                        <div class="col s1 m1 l1">
+                            -
+                        </div>
+                        <div class="col s8 m6 l6">
+                            @Html.DisplayFor(model => model.Office)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ 
+    if(TempData["StatusMessage"]!=null)
+    {
+        <script>
+            alert(@Html.Raw(Json.Encode(TempData["StatusMessage"])));
+        </script>
+    }
+}
+<p>
+    @Html.ActionLink("Edit", "Update", new { staffid=Model.StaffID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
