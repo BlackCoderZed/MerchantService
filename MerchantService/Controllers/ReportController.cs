@@ -138,7 +138,7 @@ namespace MerchantService.Controllers
                     rd.Clone();
                     rd.Dispose();
 
-                    return File(stream, "application/pdf", merchantid + ".pdf");
+                    return File(stream, "application/pdf", merchantid+"_"+enddate.Date.ToString("yyyyMMdd") + ".pdf");
                 }
             }
 
